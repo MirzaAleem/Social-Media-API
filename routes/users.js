@@ -45,7 +45,7 @@ router.get('/:id', async (req,res) =>{
     try {
         const user = await User.findById(req.params.id);
         const {password,updatedAt, ...other} = user._doc       //user._doc is the full document i.e. username,password, etc.
-        res.status(200).json(other)
+       return res.status(200).json(other)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -59,13 +59,13 @@ router.put('/:id/follow', async (req,res) =>{             //here :id will be the
             if(!currentUser.followings.includes(req.params.id)){
                 await user.updateOne({$push: {followers: req.body.userId}})
                 await currentUser.updateOne({$push: {followings: req.params.id}})
-                res.status(200).json('You have started following ' + user.username)
+                return res.status(200).json('You have started following ' + user.username)
             }
             else{
                 return res.status(403).json('You already follow this user.')
             }
         } catch (error) {
-            res.status(500).json(error)
+            return res.status(500).json(error)
         }
     }
     else{
@@ -82,13 +82,13 @@ router.put('/:id/unfollow', async (req,res) =>{             //here :id will be t
             if(currentUser.followings.includes(req.params.id)){
                 await user.updateOne({$pull: {followers: req.body.userId}})
                 await currentUser.updateOne({$pull: {followings: req.params.id}})
-                res.status(200).json('You have unfollowed ' + user.username)
+                return res.status(200).json('You have unfollowed ' + user.username)
             }
             else{
                 return res.status(403).json('You have not followed this user')
             }
         } catch (error) {
-            res.status(500).json(error)
+            return res.status(500).json(error)
         }
     }
     else{
