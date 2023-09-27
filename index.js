@@ -29,6 +29,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers');
   res.header("Access-Control-Allow-Credentials", true);
+  res.header('cross-origin-resource-policy', 'cross-origin');
   next();
 });
 
