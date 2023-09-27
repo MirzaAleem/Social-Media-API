@@ -44,8 +44,7 @@ app.post('/api/upload', upload.single("file"), (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.header('Cross-Origin-Resource-Policy', 'cross-origin')
-  res.header('Access-Control-Allow-Origin', 'https://ayila.netlify.app/'); // Allow requests from any origin
+  res.header('Access-Control-Allow-Origin', 'https://ayila.netlify.app'); // Allow requests from any origin
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 });
