@@ -56,8 +56,6 @@ app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/post', postRoute);
 
-const PORT = process.env.PORT;
-
-app.listen(PORT , ()=>{
+app.listen(8000 , ()=>{
     console.log("Backend Server1 Started")
 })
