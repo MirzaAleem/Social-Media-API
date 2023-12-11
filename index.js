@@ -11,6 +11,7 @@ const postRoute = require('./routes/post');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
+const cloudinary = require('cloudinary').v2;
 
 dotenv.config();
 
@@ -46,13 +47,22 @@ const storage = multer.diskStorage({
   }
 })
 
+//Cloudinary for image upload
+cloudinary.config({ 
+  cloud_name: 'dxwnemtgy', 
+  api_key: '255315514475953', 
+  api_secret: 'tvVHMu-DNM4CFIhksOLWRcn2VDU' 
+});
+
 const upload = multer({ storage: storage })
 
-app.post('/api/upload', upload.single("file"), (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) => {
   try {
-      return res.status(200).json("File Uploaded Successfully")
+    const result = await cloudinary.uploader.upload(req.file.buffer, { folder: 'Ayila' });
+    res.status(200).json(result + " File Uploaded Successfully");
   } catch (error) {
-      return res.status(500).json(error)
+    console.error(error);
+    res.status(500).json({ error: ' Cloudinary Internal Server Error' });
   }
 });
 
