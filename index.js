@@ -8,6 +8,7 @@ const app = express();
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
+const path = require('path');
 const cors = require('cors');
 
 //dotenv for environment variables
@@ -33,6 +34,9 @@ app.use((req, res, next) => {
   res.header('cross-origin-resource-policy', 'cross-origin');
   next();
 });
+
+//public folder for static files
+app.use("/public", express.static(path.join(__dirname, "public/")));
 
 //Routes
 app.use('/api/auth', authRoute);
